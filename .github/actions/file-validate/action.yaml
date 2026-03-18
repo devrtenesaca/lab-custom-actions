@@ -1,0 +1,29 @@
+name: Custom File Validation
+description: A custom GitHub Action to validate YAML files for GKE StatefulSet configurations.
+inputs:
+  file-name:
+    description: 'Type the name of the file to search for'
+    required: true
+    default: 'readme.md'
+
+outputs:
+  time:
+    description: 'the time when the validation was performed'
+    value: ${{ steps.get-time.outputs.current-time }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Check file existence
+      shell: bash
+      run: |
+        if [ -f "${{ inputs.file-name }}" ]; then
+          echo "File '${{ inputs.file-name }}' exists."
+        else
+          echo "File '${{ inputs.file-name }}' does not exist."
+          exit 1  
+        fi
+    - name: Get current time
+      id: get-time
+      shell: bash
+      run: echo "current_time=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
