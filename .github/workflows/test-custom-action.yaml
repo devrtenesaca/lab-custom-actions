@@ -16,4 +16,5 @@ jobs:
           file-name: 'readme.md'  # Cambia esto al nombre del archivo que deseas validar
 
       - name: Show the ouput 
-        run: echo "validation performed at: ${{ steps.validate.outputs.currtent-time }}"
+        run: |
+          echo "validation performed at: ${{ steps.validate.outputs.currtent-time }}"
