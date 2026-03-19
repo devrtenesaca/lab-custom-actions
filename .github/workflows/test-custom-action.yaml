@@ -1,5 +1,14 @@
 name: Testing my custom action
-on: [push, workflow_dispatch]
+on: 
+  push:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      file_validate:
+        description: 'type the name of file to performa a validate'
+        required: true
+        default: 'readme.md'
+
 
 jobs:
   test-custom-action:
